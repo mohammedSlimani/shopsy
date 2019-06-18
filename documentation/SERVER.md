@@ -15,4 +15,18 @@
 |/api/users/:id_user/like/:id_shop|To add the liked shop to the prefered ones|
 |/api/users/:id_user/dislike/:id_shop|To remove  shop from the prefered ones|
 
+## Database
+There are two data Collections
+* Shops : Imported from the bson file of the challenge and has the following fields:
+    * id 
+    * picture
+    * name
+    * email
+    * city 
+    * location
 
+* users : 
+    * id : auto generated
+    * email : unique
+    * password : Should be salted and hashed.
+    * prefered : List of reference to the prefered shops
