@@ -20,9 +20,9 @@ router.put('/:id_user/like/:id_shop', (req, res) => {
     const shop_id = req.params.id_shop;
     actionsManager.likeShop(user_id, shop_id, (success) => {
         if (success) {
-            res.writeHead(200);
+            res.json({success:'Added the shop to the user'});
         } else {
-            res.writeHead(500);
+            res.json({error:'Failed to like the shop to the user'});
         }
     })
 });

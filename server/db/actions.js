@@ -31,7 +31,7 @@ const dislikeShop = (user_id, shop_id, done) => {
                 if (foundUser == null) {
                     done(null);
                 } else {
-                    foundUser.prefered.filter((ele) => ele._id != shop_id);
+                    foundUser.prefered = foundUser.prefered.filter((ele) => ele._id != shop_id);
                     foundUser.save((err) => {
                         if (err) done(false);
                         done(true);
