@@ -30,3 +30,9 @@ There are two data Collections
     * email : unique
     * password : Should be salted and hashed.
     * prefered : List of reference to the prefered shops
+
+## Testing the routes
+- I have tested all the End points using Insomnia.
+- I have an online MongoDb Cluster, so I have hosted the server at https://smed-united.glitch.me
+- If you want to test the routes for yourself try something like :
+    - https://smed-united.glitch.me/api/shops
