@@ -31,7 +31,7 @@ const dislikeShop = (user_id, shop_id, done) => {
                 if (foundUser == null) {
                     done(null);
                 } else {
-                    foundUser.prefered.filter((ele)=>ele._id != shop_id);
+                    foundUser.prefered.filter((ele) => ele._id != shop_id);
                     foundUser.save((err) => {
                         if (err) done(false);
                         done(true);
@@ -65,14 +65,14 @@ const favShops = (user_id, done) => {
         .findById(user_id)
         .populate('prefered')
         .exec((err, data) => {
-            if(err){
-                console.log('err retrieving fav shops',err);
+            if (err) {
+                console.log('err retrieving fav shops', err);
                 done(null);
             }
-            else{
+            else {
                 console.log('sending user favourite shops');
                 done(data.prefered);
-            } 
+            }
         });
 }
 
