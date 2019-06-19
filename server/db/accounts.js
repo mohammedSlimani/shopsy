@@ -1,6 +1,7 @@
 //This is where we handle the Sign in and sign up stuff
 
 const Models = require('./models');
+const md5 = require('js-md5');
 
 const singIn = (email, password, done) => {
     Models
@@ -39,7 +40,7 @@ const signUp = (email, password, done) => {
 
 const Hash = (pass) => {
     //This method is going to hash the passwords
-    return pass
+    return md5(pass)
 }
 
 exports.signUp = signUp;
