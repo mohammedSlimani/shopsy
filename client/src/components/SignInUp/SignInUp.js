@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
+import SignIn from './SignIn/SignIn';
+import { Container, Row, Col } from 'react-bootstrap';
 
 export class SignInUp extends Component {
     render() {
         return (
-            <div>
-                
-            </div>
+            <>
+                <Container>
+                    <Row>
+                        <Col><SignIn /></Col>
+                        <Col><SignIn /></Col>
+                    </Row>
+                </Container>
+            </>
         )
     }
 }
