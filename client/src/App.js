@@ -8,14 +8,14 @@ export class App extends Component {
     this.state = {
       authenticated : false,
       favTabSelected : false,
-      user : undefined,
+      user : {prefered:null},
       loading : false,
       allShop:[],
       toShow:[]
     }
   }
   render() {
-    let {authenticated, user:{prefered}, toShow} = this.state;
+    let { authenticated, favTabSelected, user:{prefered}, toShow} = this.state;
     return (
       <>
         <NavBar/>
