@@ -22,6 +22,25 @@ const likeShop = (user_id, shop_id, done) => {
     })
 }
 
+const dislikeShop = (user_id, shop_id, done) => {
+    findShopById(shop_id, (foundShop) => {
+        if (foundShop == null) {
+            done(false);
+        } else {
+            findUserById(user_id, (foundUser) => {
+                if (foundUser == null) {
+                    done(null);
+                } else {
+                    foundUser.prefered.filter((ele)=>ele._id != shop_id);
+                    foundUser.save((err) => {
+                        if (err) done(false);
+                        done(true);
+                    });
+                }
+            })
+        }
+    })
+}
 const findShopById = (shop_id, done) => {
     Models
         .Shop
