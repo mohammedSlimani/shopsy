@@ -16,10 +16,28 @@ router.get('/:id/shops', (req, res) => {
 
 router.put('/:id_user/like/:id_shop', (req, res) => {
     //Add the shop with id_shop to the prefered list of the user
+    const user_id = req.params.id_user;
+    const shop_id = req.params.id_shop;
+    actionsManager.likeShop(user_id, shop_id, (success) => {
+        if (success) {
+            res.writeHead(200);
+        } else {
+            res.writeHead(500);
+        }
+    })
 });
 
 router.put('/:id_user/dislike/:id_shop', (req, res) => {
     //Remove the shop with id_shop from the prefered list of the user
+    const user_id = req.params.id_user;
+    const shop_id = req.params.id_shop;
+    actionsManager.dislikeShop(user_id, shop_id, (success) => {
+        if (success) {
+            res.writeHead(200);
+        } else {
+            res.writeHead(500);
+        }
+    })
 });
 
 router.post('/sign-in', (req, res) => {
