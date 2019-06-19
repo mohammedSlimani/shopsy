@@ -1,0 +1,51 @@
+//This to handle the likes and dislikes
+
+const Models = require('./models');
+
+const likeShop = (user_id, shop_id, done) => {
+    findShopById(shop_id, (foundShop) => {
+        if (foundShop == null) {
+            done(false);
+        } else {
+            findUserById(user_id, (foundUser) => {
+                if (foundUser == null) {
+                    done(null);
+                } else {
+                    foundUser.prefered.push(foundShop);
+                    foundUser.save((err) => {
+                        if (err) done(false);
+                        done(true);
+                    });
+                }
+            })
+        }
+    })
+}
+
+const findShopById = (shop_id, done) => {
+    Models
+        .Shop
+        .findById(shop_id, (err, found) => {
+            if (err) {
+                console.log('err finding shop')
+                done(null);
+            } else {
+                console.log('found shop', found);
+                done(found);
+            }
+        });
+}
+
+const findUserById = (user_id, done) => {
+    Models
+        .User
+        .findById(user_id, (err, found) => {
+            if (err) {
+                console.log('err finding user', err);
+                done(null);
+            } else {
+                console.log('found the user', found);
+                done(found);
+            }
+        })
+}
