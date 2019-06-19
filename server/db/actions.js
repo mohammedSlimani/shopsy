@@ -59,6 +59,23 @@ const allShops = (done) => {
         });
 }
 
+const favShops = (user_id, done) => {
+    Models
+        .User
+        .findById(user_id)
+        .populate('prefered')
+        .exec((err, data) => {
+            if(err){
+                console.log('err retrieving fav shops',err);
+                done(null);
+            }
+            else{
+                console.log('sending user favourite shops');
+                done(data.prefered);
+            } 
+        });
+}
+
 const findShopById = (shop_id, done) => {
     Models
         .Shop
