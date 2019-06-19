@@ -7,8 +7,8 @@ const singIn = ( email, password, done ) =>{
     .User
     .findOne({email:email})
     .exec( ( err, user )=>{
-        if(err){
-            console.log('err finding the user');
+        if(err || user == null){
+            console.log('err finding the user', err);
             done(null);
         }
         else if(user.password !== Hash(password)){
@@ -41,3 +41,6 @@ const Hash = ( pass ) =>{
     //This method is going to hash the passwords
     return pass
 }
+
+exports.signUp = signUp;
+exports.signIn = singIn;
