@@ -1,7 +1,17 @@
 const router = require('express').Router();
+const accountsManager = require('../db/accounts');
+const actionsManager = require('../db/actions');
 
 router.get('/:id/shops', (req, res) => {
     //return all the prefered shops by a user
+    const user_id = req.params.id;
+    actionsManager.favShops(user_id,(data)=>{
+        if(data == null){
+            res.json({error:'error retrieving favorite shops'});
+        }else{
+            res.json(data);
+        }
+    })
 });
 
 router.put('/:id_user/like/:id_shop', (req, res) => {

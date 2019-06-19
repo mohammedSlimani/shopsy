@@ -104,3 +104,7 @@ const findUserById = (user_id, done) => {
         })
 }
 
+exports.favShops = favShops;
+exports.likeShop = likeShop;
+exports.dislikeShop = dislikeShop;
+exports.allShops = allShops;
