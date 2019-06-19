@@ -41,6 +41,24 @@ const dislikeShop = (user_id, shop_id, done) => {
         }
     })
 }
+
+const allShops = (done) => {
+    //This needs to be optimized, I dont want to send all the shops data
+    //it is too much
+    Models
+        .Shop
+        .find({})
+        .exec((err, data) => {
+            if (err) {
+                console.log('err retrieving all shops', err);
+                done(null);
+            } else {
+                console.log('success retrieving shops data');
+                done(data);
+            }
+        });
+}
+
 const findShopById = (shop_id, done) => {
     Models
         .Shop
@@ -68,3 +86,4 @@ const findUserById = (user_id, done) => {
             }
         })
 }
+
