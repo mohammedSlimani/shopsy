@@ -5,7 +5,7 @@ Coding challenge for United Remote
 In this folder I explain and design my app to make sure that I keep a big picute while programming my app.
 It helps to make sure that I am not mindelessly coding. And that I am working on a single task at a time. 
 
-# Server
+# Server Folder
 - This is the implementation of my server side code.
 I have this server code hosted at https://smed-united.glitch.me/ .
 
@@ -13,5 +13,5 @@ I have this server code hosted at https://smed-united.glitch.me/ .
     - https://smed-united.glitch.me/api/shops
 
 
-# Client
-This is the implementation of my Client side
+# Client Folder
+This is the implementation of my Client side.
