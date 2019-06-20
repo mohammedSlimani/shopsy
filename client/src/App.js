@@ -54,19 +54,19 @@ export class App extends Component {
 
   loadingOff = () => this.setState({ laoding: false });
 
-  like = (shop_id) =>{
-    this.api.put(`/users/${this.state.user._id}/like/${shop_id}`);
+  like = async(shop_id) =>{
+    await this.api.put(`/users/${this.state.user._id}/like/${shop_id}`);
     this.updateFav();
   }
 
-  dislike = (shop_id) => {
-    this.api.put(`/users/${this.state.user._id}/dislike/${shop_id}`);
+  dislike = async(shop_id)=>{
+    await this.api.put(`/users/${this.state.user._id}/dislike/${shop_id}`);
     this.updateFav();
   }
 
   updateFav = async() =>{
     let fav = await this.api.get(`/users/${this.state.user._id}/shops`);
-    this.setState({
+    await this.setState({
       fav:fav
     })
     this.tweakShopsToShow();
@@ -90,7 +90,8 @@ export class App extends Component {
       <>
         <NavBar 
           toggelShowAll = {this.toggelShowAll}
-          toggelShowFav = {this.toggelShowFav} 
+          toggelShowFav = {this.toggelShowFav}
+          authenticated = {this.state.authenticated}
         />
         {loading && <Spin/>}
         {!authenticated

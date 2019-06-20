@@ -29,7 +29,6 @@ export class SignIn extends Component {
 
     async login(payload) {
         const myApi = new ApiService();
-        this.props.loadingOn();
         const user = await myApi.post('/users/sign-in',payload);
         if(user.error){
             alert('wrong password or email');
@@ -38,7 +37,6 @@ export class SignIn extends Component {
             console.log('user',user);
             this.props.auth(user);       
         }
-        this.props.loadingOff();
     }
 
     render() {

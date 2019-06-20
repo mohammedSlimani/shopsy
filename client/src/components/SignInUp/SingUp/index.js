@@ -30,7 +30,6 @@ export class SignUp extends Component {
     async register(payload) {
         const myApi = new ApiService();
         console.log("register this",this);
-        this.props.loadingOn();
         const user = await myApi.post('/users/sign-up', payload);
         if(user.error){
             alert('Email already used');
@@ -38,7 +37,6 @@ export class SignUp extends Component {
         else{
             this.props.auth(user);
         }
-        this.props.loadingOff();
     }
 
     render() {

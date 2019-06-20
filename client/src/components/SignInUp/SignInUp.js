@@ -13,14 +13,16 @@ export class SignInUp extends Component {
             <>
                 <Container>
                     <Row>
-                        <Col md={6}><SignIn
-                            auth={this.props.auth}
-                            loadingOn={this.props.loadingOn}
-                            loadingOff={this.props.loadingOff} /></Col>
-                        <Col md={6}><SignUp auth={this.props.auth}
-                            loadingOn={this.props.loadingOn}
-                            loadingOff={this.props.loadingOff}
-                        /></Col>
+                        <Col md={6}>
+                            <SignIn
+                                auth={this.props.auth}
+                            />
+                        </Col>
+                        <Col md={6}>
+                            <SignUp 
+                                auth={this.props.auth}
+                            />
+                        </Col>
                     </Row>
                 </Container>
             </>
