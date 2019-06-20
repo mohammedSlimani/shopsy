@@ -22,14 +22,9 @@ const styles = {
 
 
 export class SignUp extends Component {
-    constructor(props){
-        super(props);
-        console.log("SignUp props",props);
-    }
-        
+      
     async register(payload) {
         const myApi = new ApiService();
-        console.log("register this",this);
         const user = await myApi.post('/users/sign-up', payload);
         if(user.error){
             alert('Email already used');

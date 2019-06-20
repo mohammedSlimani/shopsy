@@ -22,11 +22,6 @@ const styles = {
 
 
 export class SignIn extends Component {
-    constructor(props){
-        super(props);
-        console.log(props);
-    }
-
     async login(payload) {
         const myApi = new ApiService();
         const user = await myApi.post('/users/sign-in',payload);

@@ -4,10 +4,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import SignUp from './SingUp';
 
 export class SignInUp extends Component {
-    constructor(props){
-        super(props);
-        console.log("SingInUp props",props);
-    }
     render() {
         return (
             <>
