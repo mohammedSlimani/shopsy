@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { ShopList, NavBar, SignInUp } from './components';
 import { Spinner } from 'react-bootstrap';
+import ApiService from './utils/Api';
 
 const Spin = ()=>{
   return(
@@ -13,6 +14,7 @@ const Spin = ()=>{
 export class App extends Component {
   constructor() {
     super();
+    this.api = new ApiService() /// This is Baaaad.... shouldn't be here
     this.state = {
       authenticated: false,
       favTabSelected: false,
@@ -27,8 +29,16 @@ export class App extends Component {
     this.setState({
       authenticated: true,
       user: user,
-      allShop: [], //need to see when to load...
-      toShow: this.state.allShop.filter(x => !user.prefered.includes(x))
+    });
+
+    this.getAllShops();
+
+  }
+
+  getAllShops = async() => {
+    const allShop = await this.api.get('/shops'); //Not a good way: Should separate the logic from display
+    this.setState({
+      allShop:allShop
     })
   }
 
@@ -37,7 +47,7 @@ export class App extends Component {
   loadingOff = () => this.setState({ laoding: false });
 
   render() {
-    let { authenticated, loading, favTabSelected, user, toShow } = this.state;
+    let { authenticated, loading, favTabSelected, user, allShop } = this.state;
     return (
       <>
         <NavBar />
@@ -47,11 +57,11 @@ export class App extends Component {
             auth = {this.AuthenticateUser}
             loadingOff={this.loadingOff}
             loadingOn={this.loadingOn}
-          />}
+            />}
 
         {authenticated
           && <ShopList
-            list={favTabSelected ? user.prefered : toShow} />}
+            list={favTabSelected ? user.prefered : allShop} />}
       </>
     )
   }

@@ -19,7 +19,7 @@ export class ShopList extends Component {
 
     render() {
         let {list} = this.props;
-        
+        console.log("list",list)
         //Probably should be smarter than this, This is going to be so slow 
         list = list.sort((a,b)=>this.calculateDistance(a)<this.calculateDistance(b));
         return (
