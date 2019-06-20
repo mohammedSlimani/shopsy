@@ -31,7 +31,13 @@ export class SignIn extends Component {
         const myApi = new ApiService();
         this.props.loadingOn();
         const user = await myApi.post('/users/sign-in',payload);
-        this.props.auth(user);
+        if(user.error){
+            alert('wrong password or email');
+        }
+        else{
+            console.log('user',user);
+            this.props.auth(user);       
+        }
         this.props.loadingOff();
     }
 

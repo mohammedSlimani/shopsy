@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 import { ShopList, NavBar, SignInUp } from './components';
 import { Spinner } from 'react-bootstrap';
 
+const Spin = ()=>{
+  return(
+    <Spinner animation="border" role="status">
+      <span className="sr-only">Loading...</span>
+    </Spinner>
+  )
+}
 
 export class App extends Component {
   constructor() {
@@ -34,10 +41,7 @@ export class App extends Component {
     return (
       <>
         <NavBar />
-        {loading && <Spinner animation="border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </Spinner>
-        }
+        {loading && <Spin/>}
         {!authenticated
           && <SignInUp
             auth = {this.AuthenticateUser}

@@ -32,7 +32,12 @@ export class SignUp extends Component {
         console.log("register this",this);
         this.props.loadingOn();
         const user = await myApi.post('/users/sign-up', payload);
-        this.props.auth(user);
+        if(user.error){
+            alert('Email already used');
+        }
+        else{
+            this.props.auth(user);
+        }
         this.props.loadingOff();
     }
 
