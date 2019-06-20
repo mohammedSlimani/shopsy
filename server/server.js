@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 //Configuration of the app
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //Routes of the App
 app.use('/api/shops', shopsRoutes);
