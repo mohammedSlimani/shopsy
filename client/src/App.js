@@ -21,7 +21,8 @@ export class App extends Component {
       user: null,
       loading: false,
       allShop: [],
-      toShow: []
+      toShow:[],
+      fav:[]
     }
   }
 
@@ -31,13 +32,22 @@ export class App extends Component {
       user: user,
     });
     this.getAllShops();
+    this.updateFav();
+  }
+
+  tweakShopsToShow = () => {
+    this.setState({
+      toShow:this.state.allShop.filter(x=> !this.state.fav.includes(x))
+    })
   }
 
   getAllShops = async() => {
+    this.loadingOn();
     const allShop = await this.api.get('/shops'); //Not a good way: Should separate the logic from display
     this.setState({
       allShop:allShop
     })
+    this.loadingOff();
   }
 
   loadingOn = () => this.setState({ laoding: true });
@@ -57,10 +67,9 @@ export class App extends Component {
   updateFav = async() =>{
     let fav = await this.api.get(`/users/${this.state.user._id}/shops`);
     this.setState({
-      user:{
-        prefered:fav
-      }
+      fav:fav
     })
+    this.tweakShopsToShow();
   }
 
   toggelShowAll = ()=>{
@@ -76,7 +85,7 @@ export class App extends Component {
   }  
 
   render() {
-    let { authenticated, loading, favTabSelected, user, allShop } = this.state;
+    let { authenticated, loading, favTabSelected, fav, allShop } = this.state;
     return (
       <>
         <NavBar 
@@ -95,7 +104,7 @@ export class App extends Component {
           && <ShopList
             like={this.like}
             dislike={this.dislike}
-            list={favTabSelected ? user.prefered : allShop} />}
+            list={favTabSelected ? fav : allShop} />}
       </>
     )
   }
