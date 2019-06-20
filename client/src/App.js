@@ -30,9 +30,7 @@ export class App extends Component {
       authenticated: true,
       user: user,
     });
-
     this.getAllShops();
-
   }
 
   getAllShops = async() => {
@@ -46,11 +44,45 @@ export class App extends Component {
 
   loadingOff = () => this.setState({ laoding: false });
 
+  like = (shop_id) =>{
+    this.api.put(`/users/${this.state.user._id}/like/${shop_id}`);
+    this.updateFav();
+  }
+
+  dislike = (shop_id) => {
+    this.api.put(`/users/${this.state.user._id}/dislike/${shop_id}`);
+    this.updateFav();
+  }
+
+  updateFav = async() =>{
+    let fav = await this.api.get(`/users/${this.state.user._id}/shops`);
+    this.setState({
+      user:{
+        prefered:fav
+      }
+    })
+  }
+
+  toggelShowAll = ()=>{
+    this.setState({
+      favTabSelected: false,
+    })
+  }
+
+  toggelShowFav = () => {
+    this.setState({
+      favTabSelected: true,
+    })
+  }  
+
   render() {
     let { authenticated, loading, favTabSelected, user, allShop } = this.state;
     return (
       <>
-        <NavBar />
+        <NavBar 
+          toggelShowAll = {this.toggelShowAll}
+          toggelShowFav = {this.toggelShowFav} 
+        />
         {loading && <Spin/>}
         {!authenticated
           && <SignInUp
@@ -61,6 +93,8 @@ export class App extends Component {
 
         {authenticated
           && <ShopList
+            like={this.like}
+            dislike={this.dislike}
             list={favTabSelected ? user.prefered : allShop} />}
       </>
     )

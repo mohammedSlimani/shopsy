@@ -32,6 +32,10 @@ export class ShopList extends Component {
                                         name = {item.name}
                                         picture = {item.picture}
                                         email = {item.email}
+                                        id={item._id}   
+                                        like = {this.props.like}
+                                        dislike = {this.props.dislike}
+                                        
                                 />
                             </Col>
                         )}

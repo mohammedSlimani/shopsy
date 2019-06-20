@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import logo from '../../assets/logo-shop.png';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Button } from 'react-bootstrap';
 
 
 export class NavBar extends Component {
@@ -18,6 +18,8 @@ export class NavBar extends Component {
                         />
                         {'Shopsy'}
                     </Navbar.Brand>
+                    <Button onClick={this.props.toggelShowAll} >All shops</Button>
+                    <Button onClick = {this.props.toggelShowFav} >Favourite</Button>
                 </Navbar>
             </>
         )

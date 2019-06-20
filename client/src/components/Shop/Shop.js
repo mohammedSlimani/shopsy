@@ -2,6 +2,15 @@ import React, { Component } from 'react'
 import { Card, Button } from 'react-bootstrap';
 
 export class Shop extends Component {
+
+    like = () =>{
+        this.props.like(this.props.id);
+    }
+
+    dislike = () =>{
+        this.props.dislike(this.props.id);
+    }
+
     render() {
         const {name, picture, email, city} = this.props;
         return (
@@ -13,8 +22,8 @@ export class Shop extends Component {
                         <p>Contact us at : {email}</p>
                         <p>Or come visit us at : {city}</p>
                 </Card.Text>
-                    <Button variant="primary">like</Button>
-                    <Button variant="danger">dislike</Button>
+                    <Button variant="primary" onClick = {this.like}>like</Button>
+                    <Button variant="danger" onClick = {this.dislike}>dislike</Button>
                 </Card.Body>
             </Card>
         )
