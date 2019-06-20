@@ -37,8 +37,8 @@ class ApiService {
         return this.client.post(path, payload).then(response => response.data);
     }
 
-    put(path, payload) {
-        return this.client.put(path, payload).then(response => response.data);
+    put(path) {
+        return this.client.put(path).then(response => response.data);
     }
 }
 

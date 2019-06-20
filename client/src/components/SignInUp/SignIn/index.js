@@ -15,12 +15,16 @@ const schema = yup.object({
         .min(6, 'Seems a bit short'),
 })
 
+const styles = {
+    padding: 20,
+    margin: 20,
+}
+
 
 export class SignIn extends Component {
     async login(payload) {
         const myApi = new ApiService();
-        const data = await myApi.post('/users/sign-up',payload);
-        console.log(data);
+        const data = await myApi.post('/users/sign-in',payload);
     }
 
     render() {
@@ -35,7 +39,8 @@ export class SignIn extends Component {
                     values,
                     errors,
                 }) => (
-                        <Container>
+                        <Container style={styles}>
+                            <h1>Sign In</h1>
                             <Form noValidate onSubmit={handleSubmit}>
                                 <Form.Group controlId="validationFormikEmail">
                                     <Form.Label>email</Form.Label>
