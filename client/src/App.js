@@ -3,14 +3,6 @@ import { ShopList, NavBar, SignInUp } from './components';
 import { Spinner } from 'react-bootstrap';
 import ApiService from './utils/Api';
 
-const Spin = ()=>{
-  return(
-    <Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>
-  )
-}
-
 export class App extends Component {
   constructor() {
     super();
@@ -37,22 +29,16 @@ export class App extends Component {
 
   tweakShopsToShow = () => {
     this.setState({
-      toShow:this.state.allShop.filter(x=> !this.state.fav.includes(x))
+      toShow:[...this.state.allShop.filter(x=>this.state.fav.includes(x))]
     })
   }
 
   getAllShops = async() => {
-    this.loadingOn();
     const allShop = await this.api.get('/shops'); //Not a good way: Should separate the logic from display
     this.setState({
       allShop:allShop
     })
-    this.loadingOff();
   }
-
-  loadingOn = () => this.setState({ laoding: true });
-
-  loadingOff = () => this.setState({ laoding: false });
 
   like = async(shop_id) =>{
     await this.api.put(`/users/${this.state.user._id}/like/${shop_id}`);
@@ -84,6 +70,13 @@ export class App extends Component {
     })
   }  
 
+  logout = ()=>{
+    this.setState({
+      authenticated:false,
+      user:null,
+    })
+  }
+
   render() {
     let { authenticated, loading, favTabSelected, fav, allShop } = this.state;
     return (
@@ -92,13 +85,12 @@ export class App extends Component {
           toggelShowAll = {this.toggelShowAll}
           toggelShowFav = {this.toggelShowFav}
           authenticated = {this.state.authenticated}
+          user = {this.state.user}
+          logout = {this.logout}
         />
-        {loading && <Spin/>}
         {!authenticated
           && <SignInUp
             auth = {this.AuthenticateUser}
-            loadingOff={this.loadingOff}
-            loadingOn={this.loadingOn}
             />}
 
         {authenticated

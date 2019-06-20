@@ -7,7 +7,7 @@ export class NavBar extends Component {
     render() {
         return (
             <>
-                <Navbar bg="dark" variant="dark">
+                <Navbar bg="light" variant="light" >
                     <Navbar.Brand href="/">
                         <img
                             alt="Shop logo"
@@ -18,8 +18,13 @@ export class NavBar extends Component {
                         />
                         {'Shopsy'}
                     </Navbar.Brand>
-                    <Button onClick={this.props.toggelShowAll} >All shops</Button>
-                    <Button onClick = {this.props.toggelShowFav} >Favourite</Button>
+                    {this.props.authenticated &&
+                    <>  Welcome {this.props.user.email} 
+                        <Button onClick={this.props.toggelShowAll} >All shops</Button>
+                        <Button onClick = {this.props.toggelShowFav} >Favourite</Button>
+                        <Button onClick = {this.props.logout} variant="danger">LOGOUT </Button>
+                    </>
+                    }
                 </Navbar>
             </>
         )
