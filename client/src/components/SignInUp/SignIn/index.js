@@ -22,9 +22,17 @@ const styles = {
 
 
 export class SignIn extends Component {
+    constructor(props){
+        super(props);
+        console.log(props);
+    }
+
     async login(payload) {
         const myApi = new ApiService();
-        const data = await myApi.post('/users/sign-in',payload);
+        this.props.loadingOn();
+        const user = await myApi.post('/users/sign-in',payload);
+        this.props.auth(user);
+        this.props.loadingOff();
     }
 
     render() {
@@ -32,6 +40,7 @@ export class SignIn extends Component {
             <Formik
                 validationSchema={schema}
                 onSubmit={this.login}
+                props = {this.props}
             >
                 {({
                     handleSubmit,

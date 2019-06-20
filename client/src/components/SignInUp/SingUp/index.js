@@ -22,9 +22,18 @@ const styles = {
 
 
 export class SignUp extends Component {
+    constructor(props){
+        super(props);
+        console.log("SignUp props",props);
+    }
+        
     async register(payload) {
         const myApi = new ApiService();
-        const data = await myApi.post('/users/sign-up', payload);
+        console.log("register this",this);
+        this.props.loadingOn();
+        const user = await myApi.post('/users/sign-up', payload);
+        this.props.auth(user);
+        this.props.loadingOff();
     }
 
     render() {
@@ -32,12 +41,13 @@ export class SignUp extends Component {
             <Formik
                 validationSchema={schema}
                 onSubmit={this.register}
+                props = {this.props}
             >
                 {({
                     handleSubmit,
                     handleChange,
                     values,
-                    errors,
+                    errors
                 }) => (
                         <Container style={styles}>
                             <h1>Sign Up</h1>

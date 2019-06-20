@@ -5,6 +5,21 @@ export class ShopList extends Component {
         return (
             <div>
                 
+                This is the shop list
+                This is the shop list
+                This is the shop list
+                This is the shop list
+                This is the shop list
+                This is the shop list
+                This is the shop list
+                This is the shop list
+                This is the shop list
+                This is the shop list
+                v
+                This is the shop list
+                This is the shop list
+                This is the shop list
+                v
             </div>
         )
     }

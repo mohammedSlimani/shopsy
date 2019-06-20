@@ -1,26 +1,53 @@
 import React, { Component } from 'react'
 import { ShopList, NavBar, SignInUp } from './components';
+import { Spinner } from 'react-bootstrap';
 
 
 export class App extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      authenticated : false,
-      favTabSelected : false,
-      user : {prefered:null},
-      loading : false,
-      allShop:[],
-      toShow:[]
+      authenticated: false,
+      favTabSelected: false,
+      user: null,
+      loading: false,
+      allShop: [],
+      toShow: []
     }
   }
+
+  AuthenticateUser = (user) => {
+    this.setState({
+      authenticated: true,
+      user: user,
+      allShop: [], //need to see when to load...
+      toShow: this.state.allShop.filter(x => !user.prefered.includes(x))
+    })
+  }
+
+  loadingOn = () => this.setState({ laoding: true });
+
+  loadingOff = () => this.setState({ laoding: false });
+
   render() {
-    let { authenticated, favTabSelected, user:{prefered}, toShow} = this.state;
+    let { authenticated, loading, favTabSelected, user, toShow } = this.state;
     return (
       <>
-        <NavBar/>
-        {!authenticated && <SignInUp/>}
-        {authenticated && <ShopList list={favTabSelected? prefered : toShow }/> }
+        <NavBar />
+        {loading && <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+        }
+        {!authenticated
+          && <SignInUp
+            auth = {this.AuthenticateUser}
+            loadingOff={this.loadingOff}
+            loadingOn={this.loadingOn}
+          />}
+
+        {authenticated
+          && <ShopList
+            list={favTabSelected ? user.prefered : toShow} />}
       </>
     )
   }
