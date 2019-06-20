@@ -11,11 +11,15 @@ const likeShop = (user_id, shop_id, done) => {
                 if (foundUser == null) {
                     done(null);
                 } else {
-                    foundUser.prefered.push(foundShop);
-                    foundUser.save((err) => {
-                        if (err) done(false);
+                    if (foundUser.prefered.includes(foundShop)) {
                         done(true);
-                    });
+                    } else {
+                        foundUser.prefered.push(foundShop);
+                        foundUser.save((err) => {
+                            if (err) done(false);
+                            done(true);
+                        });
+                    }
                 }
             })
         }
