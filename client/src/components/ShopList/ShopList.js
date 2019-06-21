@@ -28,7 +28,7 @@ export class ShopList extends Component {
                         {list.length===0 ?
                          'WoW Such Empty'
                          :list.map(item =>
-                            <Col xs={3}>
+                            <Col md={4} xs={6}>
                                 <Shop city={item.city}
                                     name={item.name}
                                     picture={item.picture}
