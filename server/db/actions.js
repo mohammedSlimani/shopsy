@@ -52,6 +52,7 @@ const allShops = (done) => {
     Models
         .Shop
         .find({})
+        .limit(40)
         .exec((err, data) => {
             if (err) {
                 console.log('err retrieving all shops', err);
