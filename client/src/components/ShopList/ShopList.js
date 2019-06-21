@@ -25,8 +25,8 @@ export class ShopList extends Component {
             <>
                 <Container>
                     <Row>
-                        {list.length==0 ?
-                         'WoW Such Empty, Go like some shops dude'
+                        {list.length===0 ?
+                         'WoW Such Empty'
                          :list.map(item =>
                             <Col xs={3}>
                                 <Shop city={item.city}

@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { ShopList, NavBar, SignInUp } from './components';
-import { Spinner } from 'react-bootstrap';
 import ApiService from './utils/Api';
 
 export class App extends Component {
   constructor() {
     super();
-    this.api = new ApiService() /// This is Baaaad.... shouldn't be here
+    this.api = new ApiService(); /// This is Baaaad.... shouldn't be here
     this.state = {
       authenticated: false,
       favTabSelected: false,
@@ -18,18 +17,20 @@ export class App extends Component {
     }
   }
 
-  AuthenticateUser = (user) => {
+  AuthenticateUser = async (user) => {
     this.setState({
       authenticated: true,
       user: user,
     });
-    this.getAllShops();
-    this.updateFav();
+    await this.getAllShops();
+    await this.updateFav();
   }
 
   tweakShopsToShow = () => {
+    //filtering The Shops to show
+    let toShow = this.state.allShop.filter(x=>this.state.fav.every(favorite=>favorite._id !== x._id));
     this.setState({
-      toShow:[...this.state.allShop.filter(x=>this.state.fav.includes(x))]
+      toShow:toShow
     })
   }
 
@@ -40,19 +41,9 @@ export class App extends Component {
     })
   }
 
-  like = async(shop_id) =>{
-    await this.api.put(`/users/${this.state.user._id}/like/${shop_id}`);
-    this.updateFav();
-  }
-
-  dislike = async(shop_id)=>{
-    await this.api.put(`/users/${this.state.user._id}/dislike/${shop_id}`);
-    this.updateFav();
-  }
-
   updateFav = async() =>{
     let fav = await this.api.get(`/users/${this.state.user._id}/shops`);
-    await this.setState({
+    this.setState({
       fav:fav
     })
     this.tweakShopsToShow();
@@ -70,6 +61,16 @@ export class App extends Component {
     })
   }  
 
+  like = async (shop_id) => {
+    await this.api.put(`/users/${this.state.user._id}/like/${shop_id}`);
+    this.updateFav();
+  }
+
+  dislike = async (shop_id) => {
+    await this.api.put(`/users/${this.state.user._id}/dislike/${shop_id}`);
+    this.updateFav();
+  }
+
   logout = ()=>{
     this.setState({
       authenticated:false,
@@ -78,7 +79,7 @@ export class App extends Component {
   }
 
   render() {
-    let { authenticated, loading, favTabSelected, fav, allShop } = this.state;
+    let { authenticated, favTabSelected, fav, toShow } = this.state;
     return (
       <>
         <NavBar 
@@ -97,7 +98,7 @@ export class App extends Component {
           && <ShopList
             like={this.like}
             dislike={this.dislike}
-            list={favTabSelected ? fav : allShop} />}
+            list={favTabSelected ? fav : toShow} />}
       </>
     )
   }
