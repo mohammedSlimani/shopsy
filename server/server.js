@@ -5,7 +5,7 @@ const usersRoutes = require('./routes/users');
 const shopsRoutes = require('./routes/shops');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 //Configuration of the app
 app.use(cors());

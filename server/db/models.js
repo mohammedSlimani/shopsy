@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
+mongoose.connect(process.env.DB_URL ||"mongodb://127.0.0.1:27017/united", { useNewUrlParser: true });
 
 let shopProto = new Schema({
     picture: String,
