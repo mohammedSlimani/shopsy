@@ -24,3 +24,7 @@ This is the implementation of my Client side.
 - As a User, I can like a shop, so it can be added to my preferred shops
 - As a User, I can display the list of preferred shops
 - As a User, I can remove a shop from my preferred shops list
+
+# Flaws (What to do next)
+- liking and disliking a shop shouldn't be done via a GET method.
+- I should use more Status Code instead of sending an error response.
