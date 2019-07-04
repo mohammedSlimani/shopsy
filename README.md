@@ -1,6 +1,6 @@
 # shop-unitedremote
 [origin of the challenge](https://github.com/hiddenfounders/web-coding-challenge)  
-Coding challenge for United Remote Hosted Online at https://smed-united.herokuapp.com/
+Coding challenge for United Remote Deployed at https://smed-united.herokuapp.com/
 
 # Documentation Folder
 In this folder I explain and design my app to make sure that I keep a big picute while programming my app.
@@ -26,5 +26,7 @@ This is the implementation of my Client side.
 - As a User, I can remove a shop from my preferred shops list
 
 # Flaws (What to do next)
+- Use keys and JWT Authentification
+- Make a better UI/UX
 - liking and disliking a shop shouldn't be done via a GET method.
 - I should use more Status Code instead of sending an error response.
