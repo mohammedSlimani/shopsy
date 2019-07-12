@@ -7,9 +7,9 @@ router.get('/:id/shops', (req, res) => {
     const user_id = req.params.id;
     actionsManager.favShops(user_id,(data)=>{
         if(data == null){
-            res.json({error:'error retrieving favorite shops'});
+            res.status(500).json({error:'error retrieving favorite shops'});
         }else{
-            res.json(data);
+            res.status(200).json(data);
         }
     })
 });
@@ -20,9 +20,13 @@ router.put('/:id_user/like/:id_shop', (req, res) => {
     const shop_id = req.params.id_shop;
     actionsManager.likeShop(user_id, shop_id, (success) => {
         if (success) {
-            res.json({success:'Added the shop to the user'});
+            res
+            .status(204)
+            .json({success:'Added the shop to the user'});
         } else {
-            res.json({error:'Failed to like the shop to the user'});
+            res
+            .status(500)
+            .json({error:'Failed to like the shop to the user'});
         }
     })
 });
@@ -33,7 +37,7 @@ router.put('/:id_user/dislike/:id_shop', (req, res) => {
     const shop_id = req.params.id_shop;
     actionsManager.dislikeShop(user_id, shop_id, (success) => {
         if (success) {
-            res.writeHead(200);
+            res.writeHead(204);
         } else {
             res.writeHead(500);
         }
@@ -45,9 +49,13 @@ router.post('/sign-in', (req, res) => {
     const { body: { email, password } } = req;
     accountsManager.signIn(email, password, (user)=>{
         if(user == null){
-            res.json({error:'Failed Login'});
+            res
+            .status(401)
+            .json({error:'Failed Login'});
         }else{
-            res.json(user);
+            res
+            .status(200)
+            .json(user);
         }
     });
 });
@@ -57,9 +65,13 @@ router.post('/sign-up', (req, res) => {
     const { body: { email, password } } = req;
     accountsManager.signUp(email, password, (user) => {
         if (user == null) {
-            res.json({ error: 'Failed sign up' });
+            res
+            .status(500)
+            .json({ error: 'Failed sign up' });
         } else {
-            res.json(user);
+            res
+            .status(200)
+            .json(user);
         }
     });
 });

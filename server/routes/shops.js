@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
         if(shops == null){
             res.writeHead(500)
         }else{
-            res.json(shops);
+            res.status(200).json(shops);
         }
     })
 });
