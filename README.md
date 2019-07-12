@@ -26,7 +26,7 @@ This is the implementation of my Client side.
 - As a User, I can remove a shop from my preferred shops list
 
 # Flaws (What to do next)
-- Use keys and JWT Authentification
-- Make a better UI/UX
-- liking and disliking a shop shouldn't be done via a GET method.
-- I should use more Status Code instead of sending an error response.
+- [ ] Use keys and JWT Authentification
+- [ ] Make a better UI/UX
+- [ ] liking and disliking a shop shouldn't be done via a GET method.
+- [x] I should use more Status Code instead of sending an error response.
