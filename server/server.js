@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const usersRoutes = require('./routes/users');
 const shopsRoutes = require('./routes/shops');
 
@@ -14,6 +15,8 @@ app.use(session({
   key: 'express.sid',
   store: sessionStore,
 }));
+
+
 //Configuration of the app
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
