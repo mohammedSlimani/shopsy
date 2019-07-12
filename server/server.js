@@ -7,6 +7,13 @@ const shopsRoutes = require('./routes/shops');
 const app = express();
 const PORT = process.env.PORT || 3002;
 
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  key: 'express.sid',
+  store: sessionStore,
+}));
 //Configuration of the app
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
