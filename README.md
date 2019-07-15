@@ -1,4 +1,4 @@
-# shop-unitedremote
+# shopsy
 [origin of the challenge](https://github.com/hiddenfounders/web-coding-challenge)  
 Coding challenge for United Remote Deployed at https://smed-united.herokuapp.com/
 
