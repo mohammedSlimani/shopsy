@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const authRoutes = require('./Auth');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const usersRoutes = require('./routes/users');
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use(helmet());
 
 //Routes of the App
+app.use('/api/users',authRoutes);
 app.use('/api/shops', shopsRoutes);
 app.use('/api/users', usersRoutes);
 
