@@ -16,13 +16,4 @@ let shopProto = new Schema({
 
 let Shop = mongoose.model('shops', shopProto);
 
-let userProto = new Schema({
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    prefered: [{ type: Schema.Types.ObjectId, ref: 'shops' }]
-})
-
-let User = mongoose.model('users', userProto);
-
 exports.Shop = Shop;
-exports.User = User;
