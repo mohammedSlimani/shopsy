@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userProto = new Schema({
-    email: { type: String, unique: true },
+    email: String,
     password: String,
     prefered: [{ type: Schema.Types.ObjectId, ref: 'shops' }],
     name: String,
