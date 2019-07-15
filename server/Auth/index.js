@@ -36,23 +36,35 @@ router.post('/sign-up', (req, res) => {
     });
 });
 
+
+//Github routes
+
 router.get('/auth/github', passport.authenticate('github'));
 
 router.get('/auth/github/callback',
     passport.authenticate('github', {
-        failureRedirect: '/api/users/auth/github/failed',
-        successRedirect: '/api/users/auth/github/success'
+        failureRedirect: '/api/users/auth/failed',
+        successRedirect: '/api/users/auth/success'
     }
     ))
 
-router.get('/auth/github/failed', (req, res) => {
+//Facebook routes
+router.get('/auth/facebook/', passport.authenticate('facebook'));
+
+router.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+        failureRedirect: '/api/users/auth/failed',
+        successRedirect: '/api/users/auth/success'
+    }))
+
+router.get('/auth/failed', (req, res) => {
     res.status(401).json({
         success: false,
         message: "user failed to authenticate."
     });
 });
 
-router.get('/auth/github/success', (req, res) => {
+router.get('/auth/success', (req, res) => {
     if (req.user) {
         res.status(200).json({
             success: true,
