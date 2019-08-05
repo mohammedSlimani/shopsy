@@ -13,8 +13,8 @@ export class App extends Component {
       user: null,
       loading: false,
       allShop: [],
-      toShow:[],
-      fav:[]
+      toShow: [],
+      fav: []
     }
   }
 
@@ -33,28 +33,28 @@ export class App extends Component {
 
   tweakShopsToShow = () => {
     //filtering The Shops to show
-    let toShow = this.state.allShop.filter(x=>this.state.fav.every(favorite=>favorite._id !== x._id));
+    let toShow = this.state.allShop.filter(x => this.state.fav.every(favorite => favorite._id !== x._id));
     this.setState({
-      toShow:toShow
+      toShow: toShow
     })
   }
 
-  getAllShops = async() => {
+  getAllShops = async () => {
     const allShop = await this.api.get('/shops'); //Not a good way: Should separate the logic from display
     this.setState({
-      allShop:allShop
+      allShop: allShop
     })
   }
 
-  updateFav = async() =>{
+  updateFav = async () => {
     let fav = await this.api.get(`/users/${this.state.user._id}/shops`);
     this.setState({
-      fav:fav
+      fav: fav
     })
     this.tweakShopsToShow();
   }
 
-  toggelShowAll = ()=>{
+  toggelShowAll = () => {
     this.setState({
       favTabSelected: false,
     })
@@ -64,7 +64,7 @@ export class App extends Component {
     this.setState({
       favTabSelected: true,
     })
-  }  
+  }
 
   like = async (shop_id) => {
     await this.api.put(`/users/${this.state.user._id}/like/${shop_id}`);
@@ -76,19 +76,19 @@ export class App extends Component {
     this.updateFav();
   }
 
-  logout = ()=>{
+  logout = () => {
     this.setState({
-      authenticated:false,
-      user:null,
+      authenticated: false,
+      user: null,
     })
   }
 
-  componentWillMount(){
+  componentWillMount() {
     //If a user has already connected then let's keep him connected.
-    if(UserProfile.getUser()){
+    if (UserProfile.getUser()) {
       this.setState({
-        authenticated:true,
-        user:UserProfile.getUser()
+        authenticated: true,
+        user: UserProfile.getUser()
       })
     }
   }
@@ -97,17 +97,17 @@ export class App extends Component {
     let { authenticated, favTabSelected, fav, toShow } = this.state;
     return (
       <>
-        <NavBar 
-          toggelShowAll = {this.toggelShowAll}
-          toggelShowFav = {this.toggelShowFav}
-          authenticated = {this.state.authenticated}
-          user = {this.state.user}
-          logout = {this.logout}
+        <NavBar
+          toggelShowAll={this.toggelShowAll}
+          toggelShowFav={this.toggelShowFav}
+          authenticated={this.state.authenticated}
+          user={this.state.user}
+          logout={this.logout}
         />
         {!authenticated
           && <SignInUp
-            auth = {this.AuthenticateUser}
-            />}
+            auth={this.AuthenticateUser}
+          />}
 
         {authenticated
           && <ShopList
