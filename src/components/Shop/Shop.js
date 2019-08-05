@@ -14,7 +14,7 @@ export class Shop extends Component {
     render() {
         const {name, picture, email, city} = this.props;
         return (
-            <Card>
+            <Card >
                 <Card.Img variant="top" src={picture} />
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>

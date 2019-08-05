@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { ShopList, NavBar, SignInUp } from './components';
 import ApiService from './utils/Api';
+import UserProfile from './utils/UserProfile';
 
 export class App extends Component {
   constructor() {
@@ -12,12 +13,16 @@ export class App extends Component {
       user: null,
       loading: false,
       allShop: [],
-      toShow:[],
-      fav:[]
+      toShow: [],
+      fav: []
     }
   }
 
   AuthenticateUser = async (user) => {
+    //Save the user to the LocalStorage
+    UserProfile.setUser(user);
+
+    //Save the User in the state.
     this.setState({
       authenticated: true,
       user: user,
@@ -26,30 +31,36 @@ export class App extends Component {
     await this.updateFav();
   }
 
+  fb_auth = async () =>{
+    console.log("logging with facebook");
+    let user = await this.api.get('/users/auth/facebook');
+    console.log("success",user);
+  }
+
   tweakShopsToShow = () => {
     //filtering The Shops to show
-    let toShow = this.state.allShop.filter(x=>this.state.fav.every(favorite=>favorite._id !== x._id));
+    let toShow = this.state.allShop.filter(x => this.state.fav.every(favorite => favorite._id !== x._id));
     this.setState({
-      toShow:toShow
+      toShow: toShow
     })
   }
 
-  getAllShops = async() => {
+  getAllShops = async () => {
     const allShop = await this.api.get('/shops'); //Not a good way: Should separate the logic from display
     this.setState({
-      allShop:allShop
+      allShop: allShop
     })
   }
 
-  updateFav = async() =>{
+  updateFav = async () => {
     let fav = await this.api.get(`/users/${this.state.user._id}/shops`);
     this.setState({
-      fav:fav
+      fav: fav
     })
     this.tweakShopsToShow();
   }
 
-  toggelShowAll = ()=>{
+  toggelShowAll = () => {
     this.setState({
       favTabSelected: false,
     })
@@ -59,7 +70,7 @@ export class App extends Component {
     this.setState({
       favTabSelected: true,
     })
-  }  
+  }
 
   like = async (shop_id) => {
     await this.api.put(`/users/${this.state.user._id}/like/${shop_id}`);
@@ -71,28 +82,40 @@ export class App extends Component {
     this.updateFav();
   }
 
-  logout = ()=>{
+  logout = () => {
+    //Delete all the saved info in the localStorage
+    localStorage.clear();
+
     this.setState({
-      authenticated:false,
-      user:null,
+      authenticated: false,
+      user: null,
     })
+  }
+
+  async componentWillMount() {
+    //If a user has already connected then let's keep him connected.
+    let user = await UserProfile.getUser();
+    if (user) {
+      this.AuthenticateUser(user)
+    }
   }
 
   render() {
     let { authenticated, favTabSelected, fav, toShow } = this.state;
     return (
       <>
-        <NavBar 
-          toggelShowAll = {this.toggelShowAll}
-          toggelShowFav = {this.toggelShowFav}
-          authenticated = {this.state.authenticated}
-          user = {this.state.user}
-          logout = {this.logout}
+        <NavBar
+          toggelShowAll={this.toggelShowAll}
+          toggelShowFav={this.toggelShowFav}
+          authenticated={this.state.authenticated}
+          user={this.state.user}
+          logout={this.logout}
         />
         {!authenticated
           && <SignInUp
-            auth = {this.AuthenticateUser}
-            />}
+            auth={this.AuthenticateUser}
+            fb_auth={this.fb_auth}
+          />}
 
         {authenticated
           && <ShopList

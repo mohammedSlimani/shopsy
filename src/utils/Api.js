@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_ROOT = 'https://smed-united.glitch.me/api';
-const TIMEOUT = 20000;
+const TIMEOUT = 60000;
 const HEADERS = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
