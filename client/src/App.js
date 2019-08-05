@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { ShopList, NavBar, SignInUp } from './components';
 import ApiService from './utils/Api';
+import UserProfile from './utils/UserProfile';
 
 export class App extends Component {
   constructor() {
@@ -76,6 +77,16 @@ export class App extends Component {
       authenticated:false,
       user:null,
     })
+  }
+
+  componentWillMount(){
+    //If a user has already connected then let's keep him connected.
+    if(UserProfile.getUser()){
+      this.setState({
+        authenticated:true,
+        user:UserProfile.getUser()
+      })
+    }
   }
 
   render() {
