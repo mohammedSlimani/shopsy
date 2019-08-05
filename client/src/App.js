@@ -31,6 +31,12 @@ export class App extends Component {
     await this.updateFav();
   }
 
+  fb_auth = async () =>{
+    console.log("logging with facebook");
+    let user = await this.api.get('/users/auth/facebook');
+    console.log("success",user);
+  }
+
   tweakShopsToShow = () => {
     //filtering The Shops to show
     let toShow = this.state.allShop.filter(x => this.state.fav.every(favorite => favorite._id !== x._id));
@@ -108,6 +114,7 @@ export class App extends Component {
         {!authenticated
           && <SignInUp
             auth={this.AuthenticateUser}
+            fb_auth={this.fb_auth}
           />}
 
         {authenticated
