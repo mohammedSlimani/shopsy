@@ -77,19 +77,21 @@ export class App extends Component {
   }
 
   logout = () => {
+    //Delete all the saved info in the localStorage
+    localStorage.clear();
+
     this.setState({
       authenticated: false,
       user: null,
     })
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     //If a user has already connected then let's keep him connected.
-    if (UserProfile.getUser()) {
-      this.setState({
-        authenticated: true,
-        user: UserProfile.getUser()
-      })
+    let user = await UserProfile.getUser();
+    console.log("component will mount",user);
+    if(user){
+     this.AuthenticateUser(user)
     }
   }
 
