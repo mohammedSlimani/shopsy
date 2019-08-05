@@ -19,7 +19,7 @@ export class App extends Component {
   }
 
   AuthenticateUser = async (user) => {
-    //Save the user to the cookie
+    //Save the user to the LocalStorage
     UserProfile.setUser(user);
 
     //Save the User in the state.
@@ -89,9 +89,8 @@ export class App extends Component {
   async componentWillMount() {
     //If a user has already connected then let's keep him connected.
     let user = await UserProfile.getUser();
-    console.log("component will mount",user);
-    if(user){
-     this.AuthenticateUser(user)
+    if (user) {
+      this.AuthenticateUser(user)
     }
   }
 
