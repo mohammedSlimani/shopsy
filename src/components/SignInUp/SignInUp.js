@@ -10,6 +10,11 @@ export class SignInUp extends Component {
             <>
                 <Container>
                     <Row>
+                        <Col md={12}>
+                            <center>
+                            <a href="https://github.com/mohammedSlimani/shopsy" target="_blank">See Source Code here</a>
+                            </center>
+                        </Col>
                         <Col md={6}>
                             <SignIn
                                 auth={this.props.auth}
