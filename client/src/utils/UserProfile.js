@@ -1,7 +1,7 @@
 //In this file we save the user info in the cookie.
 
 let UserProfile = (function () {
-    const user = null;
+    let user = null;
 
     const getUser = () => {
         //Get the user from the Cookie
@@ -18,3 +18,5 @@ let UserProfile = (function () {
         setUser
     }
 })();
+
+export default UserProfile;
