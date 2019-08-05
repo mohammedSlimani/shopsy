@@ -19,6 +19,10 @@ export class App extends Component {
   }
 
   AuthenticateUser = async (user) => {
+    //Save the user to the cookie
+    UserProfile.setUser(user);
+
+    //Save the User in the state.
     this.setState({
       authenticated: true,
       user: user,
