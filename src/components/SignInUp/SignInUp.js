@@ -5,6 +5,7 @@ import SignUp from './SingUp';
 
 export class SignInUp extends Component {
     render() {
+        //href="https://smed-united.glitch.me/api/users/auth/facebook">
         return (
             <>
                 <Container>
